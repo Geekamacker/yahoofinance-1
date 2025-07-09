@@ -13,12 +13,19 @@ ATTR_QUOTE_SOURCE_NAME: Final = "quoteSourceName"
 ATTR_SYMBOL: Final = "symbol"
 ATTR_TRENDING: Final = "trending"
 ATTR_MARKET_STATE: Final = "marketState"
+ATTR_ESG_POPULATED: Final = "esgPopulated"
 ATTR_DIVIDEND_DATE: Final = "dividendDate"
+ATTR_EXDIVIDEND_DATE: Final = "exDividendDate"
 ATTR_REGULAR_MARKET_TIME: Final = "regularMarketTime"
 ATTR_PRE_MARKET_TIME: Final = "preMarketTime"
 ATTR_POST_MARKET_TIME: Final = "postMarketTime"
 ATTR_FORWARD_PE: Final = "forwardPE"
 ATTR_TRAILING_PE: Final = "trailingPE"
+ATTR_MARKET: Final = "market"
+ATTR_EXCHANGE_TIMEZONE_NAME: Final = "exchangeTimezoneName"
+ATTR_FULL_EXCHANGE_NAME: Final = "fullExchangeName"
+ATTR_LONG_NAME: Final = "longName"
+
 
 # Hass data
 HASS_DATA_CONFIG: Final = "config"
@@ -31,12 +38,19 @@ DATA_QUOTE_TYPE: Final = "quoteType"
 DATA_QUOTE_SOURCE_NAME: Final = "quoteSourceName"
 DATA_SHORT_NAME: Final = "shortName"
 DATA_MARKET_STATE: Final = "marketState"
+DATA_ESG_POPULATED: Final = "esgPopulated"
 DATA_DIVIDEND_DATE: Final = "dividendDate"
+DATA_EXDIVIDEND_DATE: Final = "exDividendDate"
 DATA_REGULAR_MARKET_TIME: Final = "regularMarketTime"
 DATA_PRE_MARKET_TIME: Final = "preMarketTime"
 DATA_POST_MARKET_TIME: Final = "postMarketTime"
 DATA_FORWARD_PE: Final = "forwardPE"
 DATA_TRAILING_PE: Final = "trailingPE"
+DATA_MARKET: Final = "market"
+DATA_EXCHANGE_TIMEZONE_NAME: Final = "exchangeTimezoneName"
+DATA_FULL_EXCHANGE_NAME: Final = "fullExchangeName"
+DATA_LONG_NAME: Final = "longName"
+
 
 DATA_REGULAR_MARKET_PREVIOUS_CLOSE: Final = "regularMarketPreviousClose"
 DATA_REGULAR_MARKET_PRICE: Final = "regularMarketPrice"
@@ -81,8 +95,34 @@ NUMERIC_DATA_GROUPS: Final = {
         ("regularMarketVolume", False),
         (DATA_REGULAR_MARKET_TIME, False),
         (DATA_DIVIDEND_DATE, False),
+        (DATA_EXDIVIDEND_DATE, False),
         (DATA_FORWARD_PE, False),
         (DATA_TRAILING_PE, False),
+        ("ask", True),
+        ("beta", False),
+        ("bid", True),
+        ("bookValue", True),
+        ("dividendRate", True),
+        ("dividendYield", False),
+        ("epsForward", True),
+        ("epsTrailingTwelveMonths", True),
+        ("pegRatio", False),
+        ("priceHint", False),
+        ("priceToBook", False),
+        ("priceToSales", False),
+        ("regularMarketOpen", True),
+        ("shortRatio", False),
+        ("trailingAnnualDividendRate", True),
+        ("trailingAnnualDividendYield", False),
+        ("askSize", False),
+        ("bidSize", False),
+        ("heldPercentInsiders", False),
+        ("heldPercentInstitutions", False),
+        ("floatShares", False),
+        ("marketCap", False),
+        ("sharesOutstanding", False),
+        ("sharesShort", False),
+        ("impliedSharesOutstanding", False),
     ],
     CONF_INCLUDE_FIFTY_DAY_VALUES: [
         ("fiftyDayAverage", True),
@@ -121,6 +161,7 @@ PERCENTAGE_DATA_KEYS_NEEDING_MULTIPLICATION: Final = [
     "twoHundredDayAverageChangePercent",
     "fiftyTwoWeekLowChangePercent",
     "fiftyTwoWeekHighChangePercent",
+    "trailingAnnualDividendYield",
 ]
 
 
@@ -134,11 +175,16 @@ STRING_DATA_KEYS: Final = [
     DATA_QUOTE_SOURCE_NAME,
     DATA_SHORT_NAME,
     DATA_MARKET_STATE,
+    DATA_ESG_POPULATED,
+    DATA_MARKET,
+    DATA_EXCHANGE_TIMEZONE_NAME,
+    DATA_FULL_EXCHANGE_NAME,
+    DATA_LONG_NAME,
 ]
 
 
 ATTRIBUTION: Final = "Data provided by Yahoo Finance"
-BASE: Final = "https://query1.finance.yahoo.com/v7/finance/quote?symbols="
+BASE: Final = "https://query2.finance.yahoo.com/v7/finance/quote?fields=region,quoteType,quoteSourceName,triggerable,customPriceAlertConfidence,regularMarketChangePercent,regularMarketPrice,exchangeTimezoneName,exchangeTimezoneShortName,market,currency,marketState,exchange,longName,hasPrePostMarketData,priceHint,totalCash,floatShares,shortRatio,heldPercentInsiders,heldPercentInstitutions,postMarketChangePercent,postMarketTime,postMarketPrice,postMarketChange,regularMarketChange,regularMarketTime,regularMarketDayHigh,regularMarketDayLow,regularMarketVolume,sharesShort,regularMarketPreviousClose,bid,ask,bidSize,askSize,fullExchangeName,financialCurrency,regularMarketOpen,averageDailyVolume3Month,averageDailyVolume10Day,beta,fiftyTwoWeekLowChange,fiftyTwoWeekLowChangePercent,fiftyTwoWeekHighChange,fiftyTwoWeekHighChangePercent,fiftyTwoWeekLow,fiftyTwoWeekHigh,dividendDate,exDividendDate,isEarningsDateEstimate,trailingAnnualDividendRate,trailingPE,pegRatio,dividendRate,trailingAnnualDividendYield,dividendYield,revenue,priceToSales,epsTrailingTwelveMonths,epsForward,sharesOutstanding,impliedSharesOutstanding,bookValue,fiftyDayAverage,fiftyDayAverageChange,fiftyDayAverageChangePercent,twoHundredDayAverage,twoHundredDayAverageChange,twoHundredDayAverageChangePercent,marketCap,preMarketChange,preMarketChangePercent,preMarketTime,preMarketPrice&symbols="
 
 INITIAL_URL: Final = "https://finance.yahoo.com/quote/NQ%3DF/"
 CONSENT_HOST: Final = "consent.yahoo.com"
@@ -165,10 +211,10 @@ XHR_REQUEST_HEADERS: Final = {
 CONF_SYMBOLS: Final = "symbols"
 DEFAULT_CURRENCY: Final = "USD"
 DEFAULT_CURRENCY_SYMBOL: Final = "$"
-DOMAIN: Final = "yahoofinance"
+DOMAIN: Final = "yahoofinance1"
 SERVICE_REFRESH: Final = "refresh_symbols"
 
-DEFAULT_SCAN_INTERVAL: Final = timedelta(hours=6)
+DEFAULT_SCAN_INTERVAL: Final = timedelta(hours=1)
 MANUAL_SCAN_INTERVAL: Final = "manual"
 MINIMUM_SCAN_INTERVAL: Final = timedelta(seconds=30)
 
