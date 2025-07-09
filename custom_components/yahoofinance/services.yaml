@@ -1,4 +1,4 @@
-# Describes the format of available services for yahoofinance
+# Describes the format of available services for yahoofinance1
 
 refresh_symbols:
   description: Refresh data for all the symbols.
