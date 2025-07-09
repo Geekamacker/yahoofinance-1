@@ -24,7 +24,9 @@ from . import convert_to_float
 from .const import (
     ATTR_CURRENCY_SYMBOL,
     ATTR_DIVIDEND_DATE,
+    ATTR_EXDIVIDEND_DATE,
     ATTR_MARKET_STATE,
+    ATTR_ESG_POPULATED,
     ATTR_POST_MARKET_TIME,
     ATTR_PRE_MARKET_TIME,
     ATTR_QUOTE_SOURCE_NAME,
@@ -32,6 +34,10 @@ from .const import (
     ATTR_REGULAR_MARKET_TIME,
     ATTR_SYMBOL,
     ATTR_TRENDING,
+    ATTR_MARKET,
+    ATTR_EXCHANGE_TIMEZONE_NAME,
+    ATTR_FULL_EXCHANGE_NAME,
+    ATTR_LONG_NAME,
     ATTRIBUTION,
     CONF_DECIMAL_PLACES,
     CONF_SHOW_CURRENCY_SYMBOL_AS_UNIT,
@@ -40,8 +46,10 @@ from .const import (
     CURRENCY_CODES,
     DATA_CURRENCY_SYMBOL,
     DATA_DIVIDEND_DATE,
+    DATA_EXDIVIDEND_DATE,
     DATA_FINANCIAL_CURRENCY,
     DATA_MARKET_STATE,
+    DATA_ESG_POPULATED,
     DATA_POST_MARKET_TIME,
     DATA_PRE_MARKET_TIME,
     DATA_QUOTE_SOURCE_NAME,
@@ -50,6 +58,10 @@ from .const import (
     DATA_REGULAR_MARKET_PRICE,
     DATA_REGULAR_MARKET_TIME,
     DATA_SHORT_NAME,
+    DATA_MARKET,
+    DATA_EXCHANGE_TIMEZONE_NAME,
+    DATA_FULL_EXCHANGE_NAME,
+    DATA_LONG_NAME,
     DEFAULT_CURRENCY,
     DEFAULT_NUMERIC_DATA_GROUP,
     DOMAIN,
@@ -385,10 +397,30 @@ class YahooFinanceSensor(CoordinatorEntity, SensorEntity):
         self._attr_extra_state_attributes[ATTR_MARKET_STATE] = symbol_data[
             DATA_MARKET_STATE
         ]
+        self._attr_extra_state_attributes[ATTR_ESG_POPULATED] = symbol_data[
+            DATA_ESG_POPULATED
+        ]
+        self._attr_extra_state_attributes[ATTR_EXCHANGE_TIMEZONE_NAME] = symbol_data[
+            DATA_EXCHANGE_TIMEZONE_NAME
+        ]
+        self._attr_extra_state_attributes[ATTR_FULL_EXCHANGE_NAME] = symbol_data[
+            DATA_FULL_EXCHANGE_NAME
+        ]
+        self._attr_extra_state_attributes[ATTR_LONG_NAME] = symbol_data[
+            DATA_LONG_NAME
+        ]
+        self._attr_extra_state_attributes[ATTR_MARKET] = symbol_data[
+            DATA_MARKET
+        ]
 
         self._attr_extra_state_attributes[ATTR_DIVIDEND_DATE] = (
             self.convert_timestamp_to_datetime(
                 symbol_data.get(DATA_DIVIDEND_DATE), "date"
+            )
+        )
+        self._attr_extra_state_attributes[ATTR_EXDIVIDEND_DATE] = (
+            self.convert_timestamp_to_datetime(
+                symbol_data.get(DATA_EXDIVIDEND_DATE), "date"
             )
         )
 
