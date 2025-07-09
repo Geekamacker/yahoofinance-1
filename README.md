@@ -1,18 +1,14 @@
-![GitHub Release](https://img.shields.io/github/v/release/iprak/yahoofinance)
-[![License](https://img.shields.io/packagist/l/phplicengine/bitly)](https://packagist.org/packages/phplicengine/bitly)
-<a href="https://buymeacoffee.com/leolite1q" target="_blank"><img src="https://www.buymeacoffee.com/assets/img/custom_images/orange_img.png" height="20px"></a>
-
 ## Summary
 
-A custom component to display stock information from [Yahoo finance](https://finance.yahoo.com/).
+A forked custom component from iprak to display stock information with a few added attributes from [Yahoo finance](https://finance.yahoo.com/).
+Please go to the main yahoofinance to donate as this wouldn't be possible with their contribution. [iprak](https://github.com/iprak/yahoofinance).
 
-Currency details can be presented in an different currency than what is reported (`target_currency`). Data is downloaded at regular intervals (`scan_interval`) but a retry is attempted after 20 seconds in case of failure.
 
 Note: ```This integration will most only work in US mainland. Data privacy requirements like GDPR can cause requests to fail. This is as of release 1.2.12.```
 
 ## Installation
 
-This can be installed through [HACS](https://hacs.xyz/) or by copying all the files from `custom_components/yahoofinance/` to `<config directory>/custom_components/yahoofinance/`.
+This can be installed by copying all the files from `custom_components/yahoofinance/` to `<config directory>/custom_components/yahoofinance/`.
 
 ## Configuration
 
@@ -25,53 +21,84 @@ yahoofinance:
     - ISTNX
 ```
 
-The above configuration will generate an entity with the id `sensor.yahoofinance_istnx` and current value as the state along with these attributes:
+The above configuration will generate an entity with the id `sensor.yahoofinance1_SPGI` and current value as the state along with these attributes:
 
 ```
 state_class: measurement
 attribution: Data provided by Yahoo Finance
 currencySymbol: $
-symbol: ISTNX
-quoteType: MUTUALFUND
+symbol: SPGI
+quoteType: EQUITY
 quoteSourceName: Delayed Quote
-marketState: PRE
-averageDailyVolume10Day: 0
-averageDailyVolume3Month: 0
-regularMarketChange: 0.35
-regularMarketChangePercent: 0.5
-regularMarketDayHigh: 0
-regularMarketDayLow: 0
-regularMarketPreviousClose: 69.93
-regularMarketPrice: 70.28
-regularMarketVolume: 0
-regularMarketTime: 2024-05-10T19:00:27-05:00
-dividendDate: null
-forwardPE: 0
-trailingPE: 0
-fiftyDayAverage: 69.79
-fiftyDayAverageChange: 0.49
-fiftyDayAverageChangePercent: 0.7
-preMarketChange: 0
-preMarketChangePercent: 0
-preMarketTime: 0
-preMarketPrice: 0
+marketState: POSTPOST
+averageDailyVolume10Day: 1158610
+averageDailyVolume3Month: 1178613
+regularMarketChange: -3.79
+regularMarketChangePercent: -0.71
+regularMarketDayHigh: 531.22
+regularMarketDayLow: 524.6
+regularMarketPreviousClose: 530.18
+regularMarketPrice: 526.39
+regularMarketVolume: 890839
+regularMarketTime: 2025-07-08T15:00:02-05:00
+dividendDate: 2025-09-09
+exDividendDate: 2025-08-25
+forwardPE: 31.31
+trailingPE: 41.68
+ask: 531.84
+beta: 1.2
+bid: 524
+bookValue: 108.81
+dividendRate: 3.84
+dividendYield: 0.73
+epsForward: 16.81
+epsTrailingTwelveMonths: 12.63
+pegRatio: 0
+priceHint: 2
+priceToBook: 4.84
+priceToSales: 11.22
+regularMarketOpen: 529.99
+shortRatio: 2.39
+trailingAnnualDividendRate: 3.69
+trailingAnnualDividendYield: 0.7
+askSize: 1
+bidSize: 1
+heldPercentInsiders: 0.18
+heldPercentInstitutions: 89.81
+floatShares: 306028327
+marketCap: 162597142528
+sharesOutstanding: 306683008
+sharesShort: 2600532
+impliedSharesOutstanding: 308891008
+fiftyDayAverage: 512.1
+fiftyDayAverageChange: 14.29
+fiftyDayAverageChangePercent: 2.79
+preMarketChange: -1.08
+preMarketChangePercent: -0.2
+preMarketTime: 2025-07-08T08:17:58-05:00
+preMarketPrice: 529.05
 postMarketChange: 0
 postMarketChangePercent: 0
-postMarketPrice: 0
-postMarketTime: 0
-twoHundredDayAverage: 62.94
-twoHundredDayAverageChange: 7.34
-twoHundredDayAverageChangePercent: 11.67
-fiftyTwoWeekLow: 53.81
-fiftyTwoWeekLowChange: 16.47
-fiftyTwoWeekLowChangePercent: 30.61
-fiftyTwoWeekHigh: 72.44
-fiftyTwoWeekHighChange: -2.16
-fiftyTwoWeekHighChangePercent: -2.98
-trending: up
+postMarketPrice: 526.39
+postMarketTime: 2025-07-08T18:38:18-05:00
+twoHundredDayAverage: 506.89
+twoHundredDayAverageChange: 19.5
+twoHundredDayAverageChangePercent: 3.85
+fiftyTwoWeekLow: 427.14
+fiftyTwoWeekLowChange: 99.25
+fiftyTwoWeekLowChangePercent: 23.24
+fiftyTwoWeekHigh: 545.39
+fiftyTwoWeekHighChange: -19
+fiftyTwoWeekHighChangePercent: -3.48
+esgPopulated: false
+exchangeTimezoneName: America/New_York
+fullExchangeName: NYSE
+longName: S&P Global Inc.
+market: us_market
+trending: down
 unit_of_measurement: USD
-icon: mdi:trending-up
-friendly_name: Ivy Science & Technology Fund C
+icon: mdi:trending-down
+friendly_name: SPGI
 ```
 
 #### Attributes
@@ -211,12 +238,3 @@ yahoofinance:
 * The integration configuration can be reloaded from the `YAHOO FINANCE` option on `YAML` tab in `Developer tools`.
 
 * The component exposes the service `yahoofinance.refresh_symbols` which can be used to refresh all the data.
-
-
-## Breaking Changes
-
-- As of version [1.2.5](https://github.com/iprak/yahoofinance/releases/), `scan_interval` can be `manual` to suppress automatic update.
-
-- As of version [1.1.0](https://github.com/iprak/yahoofinance/releases/), the entity id has changed from `yahoofinance.symbol` to `sensor.yahoofinance_symbol`.
-- As of version 1.0.0, all the configuration is now under `yahoofinance`. If you are upgrading from an older version, then you would need to adjust the configuration.
-- As of version 1.0.1, the minimum `scan_interval` is 30 seconds.
